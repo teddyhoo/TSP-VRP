@@ -11,6 +11,9 @@ import re
 from math import sin, cos, sqrt, atan2, radians
 from selenium import webdriver
 
+
+## git commit number one
+
 numLow = 1
 numHigh = 1000
 m = 10
@@ -43,13 +46,14 @@ class HTTPClient:
  
 USERNAME = 'doggywalkeri2'
 PASSWORD = 'doggywalkeri2_password8649'
-start_date = '2018-07-18'
-end_date = '2018-07-18'
+start_date = '2018-07-24'
+end_date = '2018-07-24'
 
 REMOTE_SERVER_HOST = 'https://leashtime.com/'
 VISIT_DATA = REMOTE_SERVER_HOST + 'routing-endpoint.php?visits=1&unassigned=1&username=' + USERNAME + '&password=' + PASSWORD + '&start='+start_date+'&end=' + end_date
 SITTER_DATA = REMOTE_SERVER_HOST + 'routing-endpoint.php?sitters=1&all=1&username=' + USERNAME + '&password=' + PASSWORD + '&start='+start_date+'&end=' + end_date
 TIME_OFF_DATA = REMOTE_SERVER_HOST + 'routing-endpoint.php?timeoff=1&bysitter=1&username=' + USERNAME + '&password=' + PASSWORD + '&start='+start_date+'&end=' + end_date
+
 
 
 def calculate_distance(lat1, lon1, lat2, lon2):
@@ -191,8 +195,6 @@ def optimizeSitter(visits_by_sitter):
             ycities = []
             count = 0
 
-        
-
             total_service_time = 0
             for visit_dic in visit_array:
                 if 'lat' in visit_dic and 'lon' in visit_dic:
@@ -209,9 +211,6 @@ def optimizeSitter(visits_by_sitter):
 
                         sitter_visit_times = calcTimeWindows(visit_dic['timeofday'], visit_dic['appointmentid'])
                         total_service_time = total_service_time + int(sitter_visit_times['service_time'])
-
-                        for key in sitter_visit_times:
-                            print (key + '--> ' + sitter_visit_times[key])
 
                         xcities.append(latitude)
                         ycities.append(longitude)
@@ -251,7 +250,7 @@ def calcTimeWindows(time_data, appointmentid):
         visit_time_var[appointmentid] = appointmentid
         visit_time_var['begin'] = str(time_begin)
         visit_time_var['end'] = str(time_end)
-        visit_time_var['duration'] = str(time_diff)
+        visit_time_var['travel_time'] = str(time_diff)
         visit_time_var['service_time'] = '30'
 
         if time_begin_min == time_end_min:
