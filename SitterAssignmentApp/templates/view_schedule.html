@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Chart.HeatMap - a Chart.js plugin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <style>
+    pre.scrollable {
+      overflow: auto;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+
+
+<body>
+
+<h1> Sitter Schedule Viewer </h1>
+
+
+<div style='width:1100px;height:1100px;margin-left:20px;'>
+      <canvas id="sampleChart"></canvas>
+</div>
+
+
+<h1> Recommendation Matrix </h1>
+
+<div style='width:1100px;height:1100px;margin-left:20px;float:left;clear:left;'>
+      <canvas id="RecommendChart"></canvas>
+</div>
+
+
+<script src="{{ url_for('static', filename='node_modules/Chart.HeatMap-0.0.1-alpha/dst/Chart.HeatMap.S.min.js')}}"></script>
+
+<script src='C:\Users\Jacob Isaacs\Documents\GMU 2018 Spring\Masters Project\SitterAssignmentApp\templates\node_modules\Chart.HeatMap-0.0.1-alpha\dst\Chart.HeatMap.S.min.js'></script>
+
+<script>
+var python_dump = {{sitter_data|safe}};
+</script>
+
+<script>
+  function ctx(elementId){
+    return document.getElementById(elementId).getContext('2d');
+  }
+
+  // completely arbitrary data
+  var sampleData = {
+    labels: ['12:00am-12:30am','12:30am-1:00am','1:00am-1:30am','1:30am-2:00am',
+	     '2:00am-2:30am','2:30am-3:00am','3:00am-3:30am','3:30am-4:00am','4:00am-4:30am','4:30am-5:00am',
+	     '5:00am-5:30am','5:30am-6:00am','6:00am-6:30am','6:30am-7:00am','7:00am-7:30am','7:30am-8:00am',
+	     '8:00am-8:30am','8:30am-9:00am','9:00am-9:30am','9:30am-6:00am','10:00am-10:30am','10:30am-11:00am',
+	     '11:00am-11:30am','11:30am-12:00pm','12:00pm-12:30pm','12:30pm-1:00pm','1:00pm-1:30pm','1:30pm-2:00pm',
+             '2:00pm-2:30pm','2:30pm-3:00pm','3:00pm-3:30pm','3:30pm-4:00pm','4:00pm-4:30pm','4:30pm-5:00pm',
+	     '5:00pm-5:30pm','5:30pm-6:00pm','6:00pm-6:30pm','6:30pm-7:00pm','7:00pm-7:30pm','7:30pm-8:00pm',
+	     '8:00pm-8:30pm','8:30pm-9:00pm','9:00pm-9:30pm','9:30pm-10:00pm','10:00pm-10:30pm','10:30pm-11:00pm',
+	     '11:00pm-11:30pm','11:30pm-12:00pm'],
+    datasets: python_dump};
+
+  var colorTestColors = ['red','green'];
+
+  var sampleChart = new Chart(ctx('sampleChart'))
+	.HeatMap(sampleData, {
+		responsive: true,
+		colors: colorTestColors,
+      		colorInterpolation: 'palette',
+		showLabels:false,
+		tooltipTemplate:false});
+
+  var recommend_matrix = {{recommend_data|safe}};
+  var unassigned_labels = {{unassigned_labels|safe}};
+
+  var recommendData = {labels:unassigned_labels,
+		       datasets: recommend_matrix
+	};
+
+  var recommendChart = new Chart(ctx('RecommendChart'))
+	.HeatMap(recommendData, {
+		responsive: true,
+		colors: ['green','yellow','red'],
+      		colorInterpolation: 'gradient',
+		showLabels:true,
+		tooltipTemplate:false});
+
+</script>
+
+<div id="map-canvas"></div>
+
+
+
+
+</body>
+</html>

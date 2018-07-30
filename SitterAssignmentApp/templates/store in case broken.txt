@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+  <title>Chart.HeatMap - a Chart.js plugin</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <style>
+    pre.scrollable {
+      overflow: auto;
+      word-wrap: normal;
+      white-space: pre;
+    }
+  </style>
+</head>
+
+
+
+<body>
+
+<h1> Sitter Schedule Viewer </h1>
+
+
+<div style='width:1100px;height:1100px;margin-left:20px;'>
+      <canvas id="sampleChart"></canvas>
+</div>
+
+
+<h1> Welcome to Route Master </h1>
+
+<!-- Somewhere in the DOM for the map to be rendered -->
+<div id="map-canvas"></div>
+
+
+<script src="/static/node_modules/Chart.HeatMap-0.0.1-alpha/dst/Chart.HeatMap.S.min.js"></script>
+
+<script src='C:\Users\Jacob Isaacs\Documents\GMU 2018 Spring\Masters Project\SitterAssignmentApp\templates\node_modules\Chart.HeatMap-0.0.1-alpha\dst\Chart.HeatMap.S.min.js'></script>
+<script>
+var python_dump = [{'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Andy H.'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 10, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Lara G.'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Anna'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Andrea R.'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Farrah'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Aaron'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Ron'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Kyle'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Keith'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Barbara'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Robbyn'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 0, 0, 0, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Brianna'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Kate'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Cam'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Natasha '}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Alba'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Jessica '}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Sandra'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Melaina'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 10, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Bri'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Terri'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Cheryl S.'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Karen'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 10, 0, 0, 10, 0, 10, 0, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Danny'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Bella'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Anya'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 10, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Shawna'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'John M.'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 10, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Kate-T'}, {'data': [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0, 10, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10], 'label': 'Katy'}];
+</script>
+
+<script>
+  function ctx(elementId){
+    return document.getElementById(elementId).getContext('2d');
+  }
+
+  // completely arbitrary data
+  var sampleData = {
+    labels: ['12:00am-12:30am','12:30am-1:00am','1:00am-1:30am','1:30am-2:00am',
+	     '2:00am-2:30am','2:30am-3:00am','3:00am-3:30am','3:30am-4:00am','4:00am-4:30am','4:30am-5:00am',
+	     '5:00am-5:30am','5:30am-6:00am','6:00am-6:30am','6:30am-7:00am','7:00am-7:30am','7:30am-8:00am',
+	     '8:00am-8:30am','8:30am-9:00am','9:00am-9:30am','9:30am-6:00am','10:00am-10:30am','10:30am-11:00am',
+	     '11:00am-11:30am','11:30am-12:00pm','12:00pm-12:30pm','12:30pm-1:00pm','1:00pm-1:30pm','1:30pm-2:00pm',
+             '2:00pm-2:30pm','2:30pm-3:00pm','3:00pm-3:30pm','3:30pm-4:00pm','4:00pm-4:30pm','4:30pm-5:00pm',
+	     '5:00pm-5:30pm','5:30pm-6:00pm','6:00pm-6:30pm','6:30pm-7:00pm','7:00pm-7:30pm','7:30pm-8:00pm',
+	     '8:00pm-8:30pm','8:30pm-9:00pm','9:00pm-9:30pm','9:30pm-10:00pm','10:00pm-10:30pm','10:30pm-11:00pm',
+	     '11:00pm-11:30pm','11:30pm-12:00pm'],
+    datasets: python_dump};
+
+  var colorTestColors = ['red','green'];
+
+  var sampleChart = new Chart(ctx('sampleChart'))
+	.HeatMap(sampleData, {
+		responsive: true,
+		colors: colorTestColors,
+      		colorInterpolation: 'palette',
+		showLabels:false,
+		tooltipTemplate:false});
+
+</script>
+
+
+
+
+
+
+<!-- Load the Google Maps API -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcQAHT4XVykTjgTS08tvauL1hx17UxDac&sensor=false"></script>
+
+
+<!-- All of the script for multiple requests -->
+<script type="text/javascript">
+    //Populate items from python
+    var python_dump = ;
+
+    // Initialise some variables
+    var directionsService = new google.maps.DirectionsService();
+    var num, map, data;
+    var requestArray = [], renderArray = [];
+
+    // A JSON Array containing some people/routes and the destinations/stops
+    var jsonArray = {};
+    var iterator = 0;
+    var depot_list = [];
+
+    for (var i = 0; i < python_dump.length; i++) {
+      var route = python_dump[i]
+      var the_depot = python_dump[i][0];
+      if(depot_list.includes(the_depot) === false){
+        depot_list.push(the_depot);
+      }
+      var route_num = "route " + i.toString();
+      jsonArray[route_num] = route;
+    }
+
+/*
+    var jsonArray = {
+	  "Deborah Del Colliano" : python_dump[0],
+  	"Cara Klonoski": python_dump[1]
+        //"Person 1": ["Torquay", "Teignmouth", "Dawlish", "Exeter","Chagford","St Austell","Bath","Brighton"],
+        //"Person 2": ["Tysons","Bethesda"],
+        //"Person 3": ["Exmouth", "Sidmouth","Brighton"]//, "Taunton"]  //, "Crediton", "Okehampton"],
+        //"Person 3": ["Penzance", "Truro", "Bodmin", "Falmouth"]
+    }
+    console.log(jsonArray);
+    */
+    // 16 Standard Colours for navigation polylines
+    var colourArray = ['navy', 'lime', 'fuchsia', 'black', 'teal','grey', 'maroon', 'purple', 'aqua', 'red', 'green', 'silver', 'olive', 'blue','white','yellow'];
+
+    // Let's make an array of requests which will become individual polylines on the map.
+    function generateRequests(){
+
+        requestArray = [];
+
+        for (var route in jsonArray){
+            // This now deals with one of the people / routes
+
+            // Somewhere to store the wayoints
+            var waypts = [];
+
+            // 'start' and 'finish' will be the routes origin and destination
+            var start, finish
+
+            // lastpoint is used to ensure that duplicate waypoints are stripped
+            var lastpoint
+
+            data = jsonArray[route]
+
+            limit = data.length
+            for (var waypoint = 0; waypoint < limit; waypoint++) {
+                if (data[waypoint] === lastpoint){
+                    // Duplicate of of the last waypoint - don't bother
+                    continue;
+                }
+
+                // Prepare the lastpoint for the next loop
+                lastpoint = data[waypoint]
+
+                //transform way points into lat long
+                var way = data[waypoint];
+                var way_res = way.split(",");
+                var way_lat = way_res[0].replace("(","");
+                var way_lon = way_res[1].replace(")","");
+
+                var way_point = new google.maps.LatLng(way_lat, way_lon);
+
+                // Add this to waypoint to the array for making the request
+                waypts.push({
+                    location: way_point,
+                    stopover: true
+                });
+            }
+
+            // Grab the first waypoint for the 'start' location
+            start = (waypts.shift()).location;
+
+            // Grab the last waypoint for use as a 'finish' location
+            finish = waypts.pop();
+            if(finish === undefined){
+
+                // Unless there was no finish location for some reason?
+                finish = start;
+            } else {
+                finish = finish.location;
+            }
+
+            // Let's create the Google Maps request object
+/*
+            var first_res = start.split(",");
+            var first_lat = first_res[0].replace("(","");
+            var first_lon = first_res[1].replace(")","");
+
+            var last_res = finish.split(",");
+            var last_lat = last_res[0].replace("(","");
+            var last_lon = last_res[1].replace(")","");
+
+            var first = new google.maps.LatLng(first_lat, first_lon);
+            var last = new google.maps.LatLng(last_lat, last_lon);
+*/
+            var request = {
+                origin: start,
+                destination: finish,
+                waypoints: waypts,
+                travelMode: google.maps.TravelMode.DRIVING
+            };
+
+            //make a new marker
+            for (var i = 0; i < depot_list.length; i++) {
+              var depot_mark = depot_list[i];
+              var depot_res = depot_mark.split(",");
+              var depot_lat = depot_res[0].replace("(","");
+              var depot_lon = depot_res[1].replace(")","");
+
+              var depot_loc = new google.maps.LatLng(depot_lat, depot_lon);
+
+              var marker = new google.maps.Marker({
+                  position:depot_loc,
+                  map:map
+              })
+              var infoWindow = new google.maps.InfoWindow({
+                content:'The Depot'
+              })
+
+              marker.addListener('click',function(){
+                infoWindow.open(map,marker)
+              })
+
+            }
+
+            //marker_maker({lat:50.677965, lng:-3.768841})
+            //{lat:50.677965, lng:-3.768841}
+            //marker_maker(start)
+            //make a marker function
+            function marker_maker(coords){
+              var marker = new google.maps.Marker({
+                  position:coords,
+                  map:map,
+                  icon:'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+              })
+            }
+
+            // and save it in our requestArray
+            requestArray.push({"route": route, "request": request});
+        }
+
+        processRequests();
+    }
+
+    function processRequests(){
+
+        // Counter to track request submission and process one at a time;
+        var i = 0;
+
+        // Used to submit the request 'i'
+        function submitRequest(){
+            directionsService.route(requestArray[i].request, directionResults);
+        }
+
+        // Used as callback for the above request for current 'i'
+        function directionResults(result, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+
+                // Create a unique DirectionsRenderer 'i'
+                renderArray[i] = new google.maps.DirectionsRenderer();
+                renderArray[i].setMap(map);
+
+                // Some unique options from the colorArray so we can see the routes
+                renderArray[i].setOptions({
+                    preserveViewport: true,
+                    suppressInfoWindows: true,
+                    polylineOptions: {
+                        strokeWeight: 4,
+                        strokeOpacity: 0.8,
+                        strokeColor: colourArray[i]
+                    },
+                    markerOptions:{
+                        icon:{
+                            path: google.maps.SymbolPath.CIRCLE, //https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png,  //google.maps.SymbolPath.CIRCLE, //BACKWARD_CLOSED_ARROW,
+                            scale: 3,                            //https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png
+                            strokeColor: colourArray[i]         //CIRCLE
+                        }
+                    }
+                });
+
+                // Use this new renderer with the result
+                renderArray[i].setDirections(result);
+                // and start the next request
+                nextRequest();
+            }
+
+        }
+
+        function nextRequest(){
+            // Increase the counter
+            i++;
+            // Make sure we are still waiting for a request
+            if(i >= requestArray.length){
+                // No more to do
+                return;
+            }
+            // Submit another request
+            submitRequest();
+        }
+
+        // This request is just to kick start the whole process
+        submitRequest();
+    }
+
+    // Called Onload
+    function init() {
+
+        // Some basic map setup (from the API docs)
+        var mapOptions = {
+            center: new google.maps.LatLng(38.8191,-77.043), //,LatLng(50.677965, -3.768841)
+            zoom: 11,
+            mapTypeControl: false,
+            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        // Start the request making
+        generateRequests()
+    }
+
+    // Get the ball rolling and trigger our init() on 'load'
+    google.maps.event.addDomListener(window, 'load', init);
+</script>
+
+
+</body>
+</html>
