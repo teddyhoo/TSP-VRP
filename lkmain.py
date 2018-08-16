@@ -32,6 +32,7 @@ class HTTPClient:
     def fetch_visit_data(self): 
         response = self.http.request('GET',VISIT_DATA) 
         visit_data = json.loads(response.data.decode('utf-8'))
+        print (visit_data)
         return visit_data 
 
     def fetch_sitter_data(self):
@@ -46,8 +47,8 @@ class HTTPClient:
  
 USERNAME = 'doggywalkeri2'
 PASSWORD = 'doggywalkeri2_password8649'
-start_date = '2018-07-24'
-end_date = '2018-07-24'
+start_date = '2018-08-07'
+end_date = '2018-08-07'
 
 REMOTE_SERVER_HOST = 'https://leashtime.com/'
 VISIT_DATA = REMOTE_SERVER_HOST + 'routing-endpoint.php?visits=1&unassigned=1&username=' + USERNAME + '&password=' + PASSWORD + '&start='+start_date+'&end=' + end_date
@@ -196,6 +197,7 @@ def optimizeSitter(visits_by_sitter):
             count = 0
 
             total_service_time = 0
+            service_time_windows = []
             for visit_dic in visit_array:
                 if 'lat' in visit_dic and 'lon' in visit_dic:
                     if visit_dic['appointmentid'] == 'DEPOT' and visit_dic['lat'] != None and visit_dic['lon'] != None:
@@ -210,13 +212,17 @@ def optimizeSitter(visits_by_sitter):
                         service_time = str(visit_dic['hours'])
 
                         sitter_visit_times = calcTimeWindows(visit_dic['timeofday'], visit_dic['appointmentid'])
+                        service_time_windows.append(sitter_visit_times)
                         total_service_time = total_service_time + int(sitter_visit_times['service_time'])
 
                         xcities.append(latitude)
                         ycities.append(longitude)
                         count = count + 1
 
-            print ('total service time: ' + str(total_service_time))
+            print ('TOTAL Service Time: ' + str(total_service_time))
+            for visit_time_dict in service_time_windows:
+                print(visit_time_dict['begin'] + ' ' + visit_time_dict['end'] + ' ' + visit_time_dict['timediff'])
+
             numCities = len(xcities) 
             runAlgo(numCities,xcities,ycities,visit_array)
 
@@ -245,7 +251,10 @@ def calcTimeWindows(time_data, appointmentid):
                 time_end = '12'
 
         time_diff = (time_end - time_begin) * 60
-
+        min_diff = int(time_begin_min) - int(time_end_min)
+        ##if (min_diff < 0) {
+        time_diff = time_diff + min_diff
+        ##}
         visit_time_var = {}
         visit_time_var[appointmentid] = appointmentid
         visit_time_var['begin'] = str(time_begin)
@@ -255,8 +264,7 @@ def calcTimeWindows(time_data, appointmentid):
 
         if time_begin_min == time_end_min:
             print ('TIME WINDOW MINS: ' + str(time_diff))
-        elif time_begin_min != time_end_min:
-            print ('DIFF HALF HOUR: ')
+        visit_time_var['timediff'] = str(time_diff)
 
 
         return visit_time_var
